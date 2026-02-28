@@ -1,0 +1,306 @@
+.beach-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../images/img1.jpg'), linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  opacity: 0.7;
+  z-index: -1;
+}
+
+/* Animated Sun */
+.sun {
+  position: absolute;
+  top: 10%;
+  right: 15%;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, #FFD700, #FFA500, #FF6347);
+  border-radius: 50%;
+  box-shadow: 0 0 50px #FFD700, 0 0 100px #FFA500;
+  animation: sunPulse 4s ease-in-out infinite;
+}
+
+.sun::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    #FFD700 30deg,
+    transparent 60deg,
+    transparent 120deg,
+    #FFD700 150deg,
+    transparent 180deg,
+    transparent 240deg,
+    #FFD700 270deg,
+    transparent 300deg,
+    transparent 360deg
+  );
+  border-radius: 50%;
+  animation: sunRotate 20s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes sunPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes sunRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Animated Sea */
+.sea {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(to bottom, 
+    rgba(0, 119, 190, 0.8) 0%,
+    rgba(0, 89, 150, 0.9) 50%,
+    rgba(0, 69, 130, 1) 100%
+  );
+  animation: seaWave 8s ease-in-out infinite;
+}
+
+.sea::before,
+.sea::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 200%;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: wave 6s linear infinite;
+}
+
+.sea::after {
+  animation-delay: -3s;
+  opacity: 0.5;
+}
+
+@keyframes seaWave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes wave {
+  from { transform: translateX(-50%) translateY(0); }
+  to { transform: translateX(0) translateY(0); }
+}
+
+/* Palm Trees */
+.palm-tree {
+  position: absolute;
+  bottom: 25%;
+  width: 60px;
+  height: 150px;
+}
+
+.palm-tree-left {
+  left: 10%;
+}
+
+.palm-tree-right {
+  right: 8%;
+}
+
+.trunk {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 100px;
+  background: linear-gradient(to right, #8B4513, #A0522D, #8B4513);
+  border-radius: 0 0 5px 5px;
+}
+
+.leaves {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+}
+
+.leaf {
+  position: absolute;
+  width: 25px;
+  height: 40px;
+  background: linear-gradient(to top, #228B22, #32CD32, #00FF00);
+  border-radius: 0 100% 0 100%;
+  transform-origin: bottom center;
+  animation: leafSway 4s ease-in-out infinite;
+}
+
+.leaf:nth-child(1) {
+  top: 0;
+  left: 30px;
+  transform: rotate(-30deg);
+  animation-delay: 0s;
+}
+
+.leaf:nth-child(2) {
+  top: 5px;
+  left: 15px;
+  transform: rotate(-60deg);
+  animation-delay: 0.5s;
+}
+
+.leaf:nth-child(3) {
+  top: 5px;
+  left: 45px;
+  transform: rotate(0deg);
+  animation-delay: 1s;
+}
+
+.leaf:nth-child(4) {
+  top: 15px;
+  left: 5px;
+  transform: rotate(-90deg);
+  animation-delay: 1.5s;
+}
+
+.leaf:nth-child(5) {
+  top: 15px;
+  left: 55px;
+  transform: rotate(30deg);
+  animation-delay: 2s;
+}
+
+@keyframes leafSway {
+  0%, 100% { transform: rotate(var(--rotation)) translateY(0); }
+  50% { transform: rotate(var(--rotation)) translateY(-5px); }
+}
+
+/* Beach Sand */
+.sand {
+  position: absolute;
+  bottom: 25%;
+  left: 0;
+  width: 100%;
+  height: 5%;
+  background: linear-gradient(to bottom, #F4E4C1, #E6D4A3);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.sand::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(244, 228, 193, 0.3) 100%);
+}
+
+/* Rainbow */
+.rainbow {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 200px;
+  border-radius: 200px 200px 0 0;
+  background: conic-gradient(
+    from 180deg,
+    #FF0000 0deg,
+    #FF7F00 60deg,
+    #FFFF00 120deg,
+    #00FF00 180deg,
+    #0000FF 240deg,
+    #4B0082 300deg,
+    #9400D3 360deg
+  );
+  opacity: 0.3;
+  animation: rainbowFade 8s ease-in-out infinite;
+}
+
+@keyframes rainbowFade {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* Clouds */
+.cloud {
+  position: absolute;
+  background: white;
+  border-radius: 100px;
+  opacity: 0.7;
+  animation: cloudFloat 20s linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: white;
+  border-radius: 100px;
+}
+
+.cloud1 {
+  width: 100px;
+  height: 40px;
+  top: 15%;
+  left: -100px;
+  animation-duration: 25s;
+}
+
+.cloud1::before {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 10px;
+}
+
+.cloud1::after {
+  width: 60px;
+  height: 40px;
+  top: -15px;
+  right: 10px;
+}
+
+.cloud2 {
+  width: 80px;
+  height: 35px;
+  top: 25%;
+  left: -80px;
+  animation-duration: 30s;
+  animation-delay: 10s;
+}
+
+.cloud2::before {
+  width: 40px;
+  height: 40px;
+  top: -20px;
+  left: 15px;
+}
+
+.cloud2::after {
+  width: 50px;
+  height: 35px;
+  top: -10px;
+  right: 15px;
+}
+
+@keyframes cloudFloat {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(100vw + 200px)); }
+}

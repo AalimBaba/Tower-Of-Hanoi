@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hanoi Master - Level [[${levelId}]]</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            overflow: hidden;
+            background-color: #0d0d12;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #game-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #game-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            width: 800px;
+            height: 350px;
+            padding: 20px;
+            position: relative;
+            border-bottom: 4px solid var(--neon-blue, #00f3ff);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .peg {
+            width: 120px;
+            height: 100%;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+
+        .peg::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 12px;
+            height: 280px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--neon-blue, #00f3ff);
+            border-radius: 10px;
+            box-shadow: 0 0 10px var(--neon-blue, #00f3ff);
+            z-index: -1;
+        }
+
+        .peg:hover::before {
+            box-shadow: 0 0 20px var(--neon-blue, #00f3ff), inset 0 0 10px var(--neon-blue, #00f3ff);
+        }
+
+        .peg.drag-over::before {
+            box-shadow: 0 0 30px #00ff8c, inset 0 0 15px #00ff8c;
+            background: rgba(0, 255, 140, 0.2);
+        }
+
+        .peg.drag-over {
+            background: rgba(0, 255, 140, 0.1);
+        }
+
+        .disc {
+            height: 25px;
+            border-radius: 12px;
+            margin-bottom: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 5;
+        }
+
+        .disc.selected {
+            transform: translateY(-150px) scale(1.05);
+            box-shadow: 0 0 30px white !important;
+            border: 2px solid white !important;
+            z-index: 10;
+        }
+
+        #ui-layer {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .stat-box {
+            display: inline-block;
+            margin: 0 20px;
+            padding: 10px 20px;
+            border: 1px solid var(--neon-pink, #ff00ff);
+            color: var(--neon-pink, #ff00ff);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9em;
+        }
+
+        /* Error shake animation */
+        .shake-error {
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-layout">
+        <div id="ui-layer">
+            <h1 style="color: #00f3ff; margin: 0; text-shadow: 0 0 10px #00f3ff;">OPERATION: HANOI</h1>
+            <p style="color: #666; font-size: 0.8em; margin-bottom: 20px;">SYSTEM STATUS: ONLINE</p>
+            
+            <div class="stat-box">Moves: <span id="move-count">0</span></div>
+            <div class="stat-box" style="border-color: #00f3ff; color: #00f3ff;">
+                Level: <span th:text="${levelId}">1</span>
+            </div>
+        </div>
+
+        <div id="game-container" class="glass-panel">
+            <div class="peg" id="peg-0" onclick="handlePegClick(0)"></div>
+            <div class="peg" id="peg-1" onclick="handlePegClick(1)"></div>
+            <div class="peg" id="peg-2" onclick="handlePegClick(2)"></div>
+        </div>
+
+        <div style="margin-top: 40px;">
+            <button class="btn-neon" onclick="location.href='/game/levels'">Abort</button>
+            <button class="btn-neon" style="border-color: #ff00ff; color: #ff00ff;" onclick="resetLevel()">Reset</button>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        // Pull levelId from Model, default to 1 if null
+        const currentLevel = /*[[${levelId}]]*/ 1;
+        const discCount = parseInt(currentLevel) + 2; 
+        
+        console.log("Hanoi Grid Initialized - Level:", currentLevel, "Discs:", discCount);
+        /*]]>*/
+    </script>
+
+    <script th:src="@{/js/effects.js}"></script>
+    <script th:src="@{/js/game-logic.js}"></script>
+</body>
+</html>

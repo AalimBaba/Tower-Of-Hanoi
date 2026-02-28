@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hanoi Master - Level Select</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d12;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 50px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            color: #00f3ff;
+            text-shadow: 0 0 20px #00f3ff;
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .level-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .level-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-card:hover {
+            border-color: #00f3ff;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+            transform: translateY(-10px);
+            background: rgba(0, 243, 255, 0.05);
+        }
+
+        .level-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .level-difficulty {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        .level-card:hover .level-difficulty {
+            color: #ff00ff;
+        }
+
+        .btn-back {
+            margin-top: 50px;
+            text-decoration: none;
+            color: #666;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-back:hover {
+            color: white;
+            border-color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>SELECT SECTOR</h1>
+        <p style="color: #666;">CHOOSE YOUR DIFFICULTY LEVEL</p>
+    </div>
+
+    <div class="level-grid">
+        <div class="level-card" onclick="location.href='/game/1'">
+            <span class="level-difficulty">Training</span>
+            <span class="level-number">01</span>
+            <p>3 Discs</p>
+        </div>
+
+        <div class="level-card" onclick="location.href='/game/2'">
+            <span class="level-difficulty">Initiate</span>
+            <span class="level-number">02</span>
+            <p>4 Discs</p>
+        </div>
+
+        <div class="level-card" onclick="location.href='/game/3'">
+            <span class="level-difficulty">Operative</span>
+            <span class="level-number">03</span>
+            <p>5 Discs</p>
+        </div>
+
+        <div class="level-card" onclick="location.href='/game/4'">
+            <span class="level-difficulty">Expert</span>
+            <span class="level-number">04</span>
+            <p>6 Discs</p>
+        </div>
+
+        <div class="level-card" onclick="location.href='/game/5'">
+            <span class="level-difficulty">Master</span>
+            <span class="level-number">05</span>
+            <p>7 Discs</p>
+        </div>
+    </div>
+
+    <a href="/" class="btn-back">Return to Main Menu</a>
+
+</body>
+</html>

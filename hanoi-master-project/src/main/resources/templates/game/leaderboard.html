@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Leaderboard - Hanoi Master</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="glass-panel" style="width: 80%; margin: 50px auto; padding: 20px;">
+        <h1 style="color: var(--neon-blue); text-align: center;">TOP ARCHITECTS</h1>
+        <table style="width: 100%; border-collapse: collapse; color: white;">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--neon-pink);">
+                    <th>RANK</th>
+                    <th>PLAYER</th>
+                    <th>LEVEL</th>
+                    <th>MOVES</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-data">
+                </tbody>
+        </table>
+        <button class="btn-neon" onclick="location.href='/game/levels'" style="margin-top:20px;">BACK TO GRID</button>
+    </div>
+
+    <script>
+        fetch('/api/user/leaderboard')
+            .then(res => res.json())
+            .then(data => {
+                const body = document.getElementById('leaderboard-data');
+                body.innerHTML = data.map((p, i) => `
+                    <tr style="text-align: center; height: 50px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <td>#${i + 1}</td>
+                        <td><img src="${p.avatar}" width="30"> ${p.username}</td>
+                        <td>${p.level}</td>
+                        <td style="color: var(--neon-blue);">${p.moves}</td>
+                    </tr>
+                `).join('');
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+@import url('https://fonts.googleapis.com/css2?family=Shojumaru&family=Russo+One&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Shojumaru', cursive; /* Oriental-style font */
+  overflow: hidden;
+  background-color: #2b1055;
+}
+
+.zen-view {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* Vivid Sunset Gradient - Exactly matching screenshot */
+  background: linear-gradient(180deg, 
+    #b94c96 0%,  /* Deep Pink Top */
+    #e65c9c 30%, /* Lighter Pink */
+    #ff8e8e 60%, /* Salmon/Peach */
+    #ffccbc 100% /* Light Horizon */
+  );
+}
+
+/* Mountain Silhouette Layer 1 (Distant) */
+.zen-view::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: 
+    linear-gradient(180deg, transparent 0%, rgba(75, 18, 72, 0.8) 100%),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%239c27b0" fill-opacity="0.4" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,144C672,149,768,203,864,208C960,213,1056,171,1152,149.3C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Mountain Silhouette Layer 2 (Foreground) */
+.zen-view::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  /* Dark purple/blue mountains */
+  background-color: #3b1e5a; 
+  clip-path: polygon(
+    0% 100%, 0% 60%, 
+    10% 80%, 25% 50%, 
+    40% 75%, 55% 45%, 
+    70% 70%, 85% 55%, 
+    100% 80%, 100% 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* HUD Styling - Top Corners */
+.hud {
+  position: absolute;
+  top: 100px; /* Moved down to make room for header */
+  left: 0;
+  width: 100%;
+  padding: 0 50px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  z-index: 20;
+  color: #fff;
+  font-family: 'Shojumaru', cursive; 
+  /* "Blurry" text effect like in screenshot */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Header Description */
+.header-desc {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    z-index: 30;
+    color: white;
+    font-family: 'Shojumaru', cursive;
+}
+
+.main-title {
+    margin: 0;
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px #e67e22, 0 0 20px #e74c3c;
+    letter-spacing: 2px;
+}
+
+.sub-desc {
+    margin: 5px auto;
+    font-size: 1rem;
+    max-width: 600px;
+    opacity: 0.9;
+    font-family: 'Shojumaru', cursive;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.2);
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+.hud-left {
+  text-align: left;
+}
+
+.hud-right {
+  text-align: right;
+  display: flex;
+  gap: 40px;
+}
+
+.hud-text {
+  font-size: 2rem;
+  line-height: 1.4;
+  letter-spacing: 1px;
+}
+
+/* Simulation Panel - Bottom Overlay */
+.simulation-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #2d3e50; /* Dark Slate Blue/Grey */
+  padding: 15px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 30;
+  border-top: 4px solid #4a6fa5;
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+}
+
+.sim-header {
+  color: white;
+  font-family: 'Russo One', sans-serif; /* Blocky font */
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sim-controls {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: white;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+}
+
+.btn-primary { background-color: #3498db; }
+.btn-warning { background-color: #f1c40f; color: #333; }
+.btn-danger { background-color: #e74c3c; }
+.btn-active { background-color: #2ecc71; } /* Green for active toggle */
+
+/* Towers Container */
+.towers-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 120px; /* Above sim panel */
+  z-index: 10;
+  gap: 80px; /* Space between towers */
+  position: relative;
+  width: 100%;
+}
+
+.tower-area {
+  position: relative;
+  width: 250px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Pole - Dark Grey/Black */
+.pole {
+  width: 12px;
+  height: 350px; 
+  background: #2c3e50; 
+  position: absolute;
+  bottom: 0;
+  z-index: 5;
+  border-radius: 6px 6px 0 0;
+}
+
+/* Base - Not really visible in screenshot but good for grounding */
+.base {
+  display: none; /* Hidden based on screenshot style */
+}
+
+/* Disk Styling */
+.disk-stack {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  z-index: 15;
+  height: 350px; 
+  pointer-events: none; 
+}
+
+.disk {
+  height: 45px; /* Thicker disks */
+  margin-bottom: 0;
+  /* Flat look with slight bevel/shadow */
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(0,0,0,0.1));
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+  cursor: grab;
+  z-index: 20;
+  /* Remove border radius for blocky look or keep slight */
+  border-radius: 2px; 
+}
+
+.disk:active {
+  cursor: grabbing;
+}
+
+
+.btn-primary { background: #3498db; color: white; }
+.btn-primary:hover { background: #2980b9; }
+
+.btn-danger { background: #e74c3c; color: white; }
+.btn-danger:hover { background: #c0392b; }
+
+.btn-warning { background: transparent; color: #f1c40f; border: 2px solid #f1c40f; }
+.btn-warning:hover { background: #f1c40f; color: black; }
+
+.btn-active { 
+  background: white; 
+  color: #2b1055; 
+  box-shadow: 0 0 10px white;
+}
+
+/* Login Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.login-box {
+  background: linear-gradient(135deg, #2b1055, #7597de);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  border: 4px solid white;
+  box-shadow: 0 0 20px rgba(255,255,255,0.5);
+  max-width: 400px;
+  width: 90%;
+}
+
+.login-title {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 0 #000;
+}
+
+.login-input {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Russo One', sans-serif;
+  text-align: center;
+}
+
+.start-btn {
+  background: #ff512f;
+  color: white;
+  font-size: 1.5rem;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: 'Shojumaru', cursive;
+  transition: transform 0.2s;
+  box-shadow: 0 5px 0 #c0392b;
+}
+
+.start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #c0392b;
+}
+
+.start-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #c0392b;
+}
+
+/* Disk Slider Control */
+.disk-control-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0,0,0,0.3);
+    padding: 5px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.control-label {
+    color: #fff;
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.disk-slider {
+    -webkit-appearance: none;
+    width: 120px;
+    height: 8px;
+    background: #4a6fa5;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.9;
+    transition: opacity .2s;
+}
+
+.disk-slider:hover {
+    opacity: 1;
+}
+
+.disk-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #f1c40f;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.disk-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #f1c40f;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
